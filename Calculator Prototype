@@ -1,0 +1,85 @@
+from tkinter import *
+
+
+app = Tk()
+app.title("Financial Calculator")
+
+#This part is the first frame
+
+frame = Frame(app)
+frame.grid(row=0, column=0)
+
+label1 = Label(frame, text="Enter loan debt:", font=("Arial", 30)).grid(row=0, column=0, sticky=E)
+entry1 = Entry(frame, font=("Arial", 30))
+entry1.grid(row=0, column=1, sticky=E)
+
+label2 = Label(frame, text="Enter interest rate %:", font=("Arial", 30)).grid(row=1, column=0, sticky=E)
+entry2 = Entry(frame, font=("Arial", 30))
+entry2.grid(row=1, column=1, sticky=E)
+
+label3 = Label(frame, text="Enter Years:", font=("Arial", 30)).grid(row=2, column=0, sticky=E)
+entry3 = Entry(frame, font=("Arial", 30) )
+entry3.grid(row=2, column=1, sticky=E)
+
+label4 = Label(frame, text="Resulting Debt:", font=("Arial", 30)).grid(row=3, column=0, sticky=E)
+
+label5 = Label(frame, text="", font=("Arial", 30))
+label5.grid(row=3, column=1, sticky=W)
+
+#This part is the second frame
+
+frame2 = Frame(app)
+
+labelN1 = Label(frame2, text="Payment:", font=("Arial", 30)).grid(row=0, column=0, sticky=E)
+entryN1 = Entry(frame2, font=("Arial", 30))
+entryN1.grid(row=0, column=1, sticky=E)
+
+labelN2 = Label(frame2, text="Years till debt is paid:", font=("Arial", 30)).grid(row=1, column=0, sticky=E)
+labelN3 = Label(frame2, text="",font=("Arial", 30))
+labelN3.grid(row=1, column=1, sticky=W)
+
+
+
+def Calculate():
+    Debt = float(entry1.get()) * (1 + (float(entry2.get())/100)*float(entry3.get()))
+    label5.config(text=str(Debt))
+
+def switch():
+    frame.grid_forget()
+    frame2.grid(row=0, column=0)
+
+def switchBack():
+    frame2.grid_forget()
+    frame.grid(row=0, column=0)
+
+def payBack():
+    time = 0
+    payment = float(entryN1.get())
+    Debt = 1
+    while Debt > 0:
+        Debt = float(entry1.get()) * (1 + (float(entry2.get()) / 100) * time) - (payment * time)
+        time += 1
+        if time == 50:
+            labelN3.config(text="Never")
+            break;
+
+    if time != 50:
+        labelN3.config(text=str(time))
+
+
+
+
+
+
+
+
+
+button1 = Button(frame, text="Calculate", font=("Arial", 30), command=Calculate).grid(row=4, column=1, sticky=E)
+
+button2 = Button(frame, text="PayOff", font=("Arial", 30), command=switch).grid(row=4, column=0, sticky=W)
+
+button3 = Button(frame2, text="Back", font=("Arial", 30), command=switchBack).grid(row=100, column=0, sticky=W)
+
+button4 = Button(frame2, text="Calculate", font=("Arial", 30), command=payBack).grid(row=100, column=100, sticky=E)
+
+app.mainloop()
