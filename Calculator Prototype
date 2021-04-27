@@ -41,8 +41,12 @@ labelN3.grid(row=1, column=1, sticky=W)
 
 
 def Calculate():
-    Debt = float(entry1.get()) * (1 + (float(entry2.get())/100)*float(entry3.get()))
-    label5.config(text=str(Debt))
+    try:
+        Debt = float(entry1.get()) * (1 + (float(entry2.get()) / 100) * float(entry3.get()))
+        label5.config(text=str(Debt))
+    except:
+        label5.config(text="Error")
+
 
 def switch():
     frame.grid_forget()
@@ -53,33 +57,50 @@ def switchBack():
     frame.grid(row=0, column=0)
 
 def payBack():
-    time = 0
-    payment = float(entryN1.get())
-    Debt = 1
-    while Debt > 0:
+    try:
+        time = 0
+        payment = float(entryN1.get())
         Debt = float(entry1.get()) * (1 + (float(entry2.get()) / 100) * time) - (payment * time)
-        time += 1
-        if time == 50:
-            labelN3.config(text="Never")
-            break;
+        Test = Debt
 
-    if time != 50:
-        labelN3.config(text=str(time))
+        while Debt > 0:
+            time += 1
+            Debt = float(entry1.get()) * (1 + (float(entry2.get()) / 100) * time) - (payment * time)
 
-
-
-
+            if Test < Debt:
+                labelN3.config(text="Never")
+                break;
 
 
+            labelN3.config(text=str(time))
+    except:
+        labelN3.config(text="Error")
+
+
+def clear():
+    entry1.delete(0, END)
+    entry2.delete(0, END)
+    entry3.delete(0, END)
+    entryN1.delete(0, END)
+    label5.config(text="")
+    labelN3.config(text="")
 
 
 
-button1 = Button(frame, text="Calculate", font=("Arial", 30), command=Calculate).grid(row=4, column=1, sticky=E)
+
+
+
+
+
+
+button1 = Button(frame, text="Calculate", font=("Arial", 30), command=Calculate).grid(row=4, column=2, sticky=E)
 
 button2 = Button(frame, text="PayOff", font=("Arial", 30), command=switch).grid(row=4, column=0, sticky=W)
 
 button3 = Button(frame2, text="Back", font=("Arial", 30), command=switchBack).grid(row=100, column=0, sticky=W)
 
 button4 = Button(frame2, text="Calculate", font=("Arial", 30), command=payBack).grid(row=100, column=100, sticky=E)
+
+button5 = Button(frame, text="Clear", font=("Arial", 30), command=clear).grid(row=4, column=1, sticky=W)
 
 app.mainloop()
