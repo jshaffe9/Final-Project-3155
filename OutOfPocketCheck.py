@@ -7,7 +7,7 @@ import plotly.graph_objs as go
 import subprocess
 import numpy as np
 
-df1 = pd.read_csv(r'C:\Users\abdul\PycharmProjects\PocketCheckLine\PocketCheckData\API_SH.XPD.OOPC.PC.CD_DS2_en_csv_v2_2166588.csv', header=2)
+df1 = pd.read_csv(r'PocketCheckData\API_SH.XPD.OOPC.PC.CD_DS2_en_csv_v2_2166588.csv', header=2)
 countries = df1.iloc[:,0].values
 
 app = dash.Dash(suppress_callback_exceptions=True)
@@ -89,7 +89,7 @@ def update_page(pathname):
               [Input('submit-val', 'n_clicks')])
 def load_calculator(clicks):
     if clicks >= 1:
-        child = subprocess.Popen(['python', 'C:\\Users\\abdul\\PycharmProjects\\PocketCheckLine\\CalculatorPrototype.py'])
+        child = subprocess.Popen(['python', 'CalculatorPrototype.py'])
     return 'hello'
 
 
