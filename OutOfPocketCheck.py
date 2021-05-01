@@ -18,19 +18,21 @@ app.layout = html.Div([
 ])
 
 index_page = html.Div([
-    html.H1(children="Out-of-pocket Price Check"),
+    html.H1(children="Out-of-pocket Price Check", style={'color': 'blue', 'textAlign': 'center'}),
     html.Hr(),
-    html.Div("Out-of-pocket Price Check provides data for countries all around the world"),
+    html.Div("Out-of-pocket Price Check provides out-of-pocket expenditure data for countries all around the world in a graphical, interactive format"),
+    html.Br(),
+    html.Div("It also provides a debt calculator"),
     html.Br(),
     dcc.Link('Go to Graphs', href='/graphs'),
     html.Br(),
-    #dcc.Link('Launch calculator', href='/calculator')
+    html.Br(),
     html.Button('Launch Calculator', id='submit-val', n_clicks=0),
     html.Div(id='hidden-div', style={'display': 'none'})
 ])
 
 page_1_layout = html.Div(children=[
-    html.H1(children="Pocket Check"),
+    html.H1(children="Out-of-pocket Price Check", style={'color': 'blue', 'textAlign': 'center'}),
     html.Hr(),
     html.Br(),
     html.Br(),
